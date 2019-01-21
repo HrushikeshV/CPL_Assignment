@@ -245,7 +245,7 @@ int main()
 	int n,i,sc ;
 
 	set **s_pptr = (set **)malloc(sizeof(set *)); 
-	int count = 1 ;
+	int count = 0 ;
 	
 	printf("CPL Assignment :\nType 1 to create new set\nType 2 to print any number of sets\nType 100 to exit") ;
 	do
@@ -254,7 +254,7 @@ int main()
 		
 		if(n == 1)
 		{
-			*s_pptr = createNewSet(*s_pptr,&sc) ;
+			s_pptr[count] = createNewSet(*s_pptr,&sc) ;
 			count ++ ;
 			s_pptr = (set **)realloc(s_pptr,sizeof(set *)*count) ;
 		}
