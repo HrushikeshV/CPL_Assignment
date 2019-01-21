@@ -11,10 +11,10 @@ typedef struct node_tag{
 
 //TYPICAL SET OPERATIONS
 //1.
-/*
+
 int is_element_of(int x,node * s)
 {
-	node * nptr = s->start ;
+	node * nptr = s ;
 	while(nptr != NULL)
 	{
 		if(nptr->data == x)
@@ -30,23 +30,25 @@ int is_empty(node * s)
 	
 	//Returns 1 if empty else 0
 	
-	if(s->start == NULL)
+	if(s == NULL)
 	return 1 ;
-
+	else
 	return 0 ;
 }
 
 int size(node * s)
 {
+    node * nptr = s ;
 	int count = 0 ;
-	while(s->start != NULL)
+	while(nptr != NULL)
 	{
-		count++ ;	
+		count++ ;
+		nptr = nptr->next ;
 	}
 	
 	return count ;
 }
-*/
+
 
 
 
@@ -139,38 +141,67 @@ int main()
     int n , ai;
     printf("enter 1 to create list . 3 to see list .") ;
     char c;
+    int e,si;
+        printf("For Typical Operations:\n Type 1 for is_element_of \nType 2 for is_empty \nType 3 for size\nType 4 for printing any list\nType 5 for set creation\n");
+        
+        printf("For Other Operations:\nType 6 for add if not already present \nType 7 for remove any element from list \n");
+        
+        printf("For Operations on 2 sets:\nType 8 for union of 2 sets \nType 9 for intersection of 2 sets \nType 10 for difference between 2 sets\nType 11 for whether checking set A is subset of set \nType 12 for set creation\n");
+   
     do
-    {
-        printf("For Typical Operations:\n
-        Type 1 for is_element_of \n
-        Type 2 for is_empty \n
-        Type 3 for size\n
-        Type 4 for printing any list\n
-        Type 5 for set creation\n");
-        
-        printf("For Other Operations:\n
-        Type 6 for add if not already present \n
-        Type 7 for remove any element from list \n
-        
-        printf("For Operations on 2 sets:\n
-        Type 8 for union of 2 sets \n
-        Type 9 for intersection of 2 sets \n
-        Type 10 for difference between 2 sets\n
-        Type 11 for whether checking set A is subset of set B\n
-        Type 12 for set creation\n");
-        
+    {     
         scanf("%d",&n) ;
-        
-        
-        
         if(n == 1)
+        {
+            printf("Enter the element you want to check : \n") ;
+            scanf("%d",&e) ;
+            printf("Enter the set index for searching : ") ;
+            scanf("%d",&si) ;
+            if(is_element_of(e,set_pptr[si]))
+            {
+                printf("Element %d exists in set index %d\n",e,si);
+            }
+            else
+            printf("Does not exist ! \n") ;
+        }
+        else if(n == 2)
+        {
+            printf("Enter the index of the set less than or equal to the number of sets : \n") ;
+            scanf("%d",&e) ;
+            if(e<=count)
+            {
+                if(is_empty(set_pptr[e])) 
+                {
+                    printf("Empty\n") ; 
+                }
+                else 
+                {
+                    printf("Not Empty\n") ;
+                }
+            }
+            else
+            {
+                printf("Enter within range !") ;
+            }
+        }
+        else if (n == 3)
+        {
+            printf("Enter the index of set : \n") ;
+            scanf("%d",&e) ;
+            
+            printf("Size of set index %d is %d",e,size(set_pptr[e])) ;
+        }
+        else if(n == 4)
+        {
+            printSet(set_pptr,count) ;
+        }
+        else if(n == 5)
         {
             set_pptr[count] = createSet(set_pptr[count]) ;
             count++ ;
             set_pptr = (node **)realloc(set_pptr,count) ;
         }
-
-    	if(n == 2)
+        else if(n == 6)
 	    {
             printf("Enter set index to which you want to add an element : \n") ;
             scanf("%d",&ai) ;
@@ -178,10 +209,7 @@ int main()
             set_pptr[ai] = createNode(set_pptr[ai]) ;
 	    }   
         
-        else if(n == 3)
-        {
-            printSet(set_pptr,count) ;
-        }
+        
     }
     while(n!=100) ;
     
