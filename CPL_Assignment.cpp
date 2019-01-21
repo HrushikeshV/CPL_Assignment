@@ -10,6 +10,42 @@ typedef struct set_wrap {
 	node * start ;
 }set;
 
+//1.
+int is_element_of(int x,set * s)
+{
+	node * nptr = s->start ;
+	while(nptr != NULL)
+	{
+		if(nptr->data == x)
+		return 1 ;
+		nptr = nptr->next ;
+	}
+	
+	return 0 ;
+}
+
+int is_empty(set * s)
+{
+	
+	//Returns 1 if empty else 0
+	
+	if(s->start == NULL)
+	return 1 ;
+
+	return 0 ;
+}
+
+int size(set * s)
+{
+	int count = 0 ;
+	while(s->start != NULL)
+	{
+		count++ ;	
+	}
+	
+	return count ;
+}
+
 node * DeleteFromStart(node * list_ptr)
 {
 	node * nptr ;
@@ -79,17 +115,6 @@ void DeleteList(node *list_ptr )
 		}
 
 }
-
-
-
-
-
-
-
-
-
-
-
 
 node * createNewNode(node * list_ptr , int n) 
 {
