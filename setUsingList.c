@@ -12,38 +12,44 @@ typedef struct node_tag{
 //TYPICAL SET OPERATIONS
 //1.
 
-int is_element_of(int x,node * s)
+int is_element_of(int e,node ** s)
 {
-	node * nptr = s ;
-	while(nptr != NULL)
+	//node * nptr = s ;
+	int si;
+	printf("Enter the set index for searching : ") ;
+        scanf("%d",&si) ;
+	while(s[si] != NULL)
 	{
-		if(nptr->data == x)
+		if(s[si]->data == e)
 		return 1 ;
-		nptr = nptr->next ;
+		s[si] = s[si]->next ;
 	}
 	
 	return 0 ;
 }
 
-int is_empty(node * s)
+int is_empty(node ** s,int e)
 {
 	
 	//Returns 1 if empty else 0
+	//int si;
+	//printf("Enter the set index for searching : ") ;
+        //scanf("%d",&si) ;
 	
-	if(s == NULL)
+	if(s[e] == NULL)
 	return 1 ;
 	else
 	return 0 ;
 }
 
-int size(node * s)
+int size(node ** s,int e)
 {
-    node * nptr = s ;
+    //node * nptr = s ;
 	int count = 0 ;
-	while(nptr != NULL)
+	while(s[e] != NULL)
 	{
 		count++ ;
-		nptr = nptr->next ;
+		s[e] = s[e]->next ;
 	}
 	
 	return count ;
@@ -121,11 +127,11 @@ void printSet(node ** set_pptr,int count)
         printf("%d ",set_pptr[si]->data) ;
         set_pptr[si] = set_pptr[si]->next ;
     }
-    c++;
+    //c++;
     printf("Do you want to print more sets : (1/0)\n") ;
     scanf("%d",&p) ;
     
-    if(p == 1 && c<=count)
+    if(p == 1)
     goto re ;
     else
     printf("Sorry cannot print . ") ;
@@ -155,9 +161,9 @@ int main()
         {
             printf("Enter the element you want to check : \n") ;
             scanf("%d",&e) ;
-            printf("Enter the set index for searching : ") ;
-            scanf("%d",&si) ;
-            if(is_element_of(e,set_pptr[si]))
+            //printf("Enter the set index for searching : ") ;
+            //scanf("%d",&si) ;
+            if(is_element_of(e,set_pptr) == 1)
             {
                 printf("Element %d exists in set index %d\n",e,si);
             }
@@ -170,7 +176,7 @@ int main()
             scanf("%d",&e) ;
             if(e<=count)
             {
-                if(is_empty(set_pptr[e])) 
+                if(is_empty(set_pptr,e) == 1) 
                 {
                     printf("Empty\n") ; 
                 }
@@ -189,7 +195,7 @@ int main()
             printf("Enter the index of set : \n") ;
             scanf("%d",&e) ;
             
-            printf("Size of set index %d is %d",e,size(set_pptr[e])) ;
+            printf("Size of set index %d is %d",e,size(set_pptr,e)) ;
         }
         else if(n == 4)
         {
@@ -199,7 +205,7 @@ int main()
         {
             set_pptr[count] = createSet(set_pptr[count]) ;
             count++ ;
-            set_pptr = (node **)realloc(set_pptr,count) ;
+            set_pptr = (node **)realloc(set_pptr,count+1) ;
         }
         else if(n == 6)
 	    {
