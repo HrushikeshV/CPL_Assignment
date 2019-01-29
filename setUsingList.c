@@ -501,6 +501,44 @@ void subsetCheck(node ** set_pptr , int count, int nu)
 	
 }
 
+node * Delete(node * nptr , int p)
+{
+	
+	
+	if(nptr->data == p)
+	{
+		node * t = nptr ;
+		nptr = nptr->next ;
+		free(t) ;
+	}	
+	else
+	{
+		node * ptr = nptr ;
+		while(ptr != NULL)
+		{
+			if(ptr->next->data == p)
+			{
+				if(ptr->next->next!=NULL)
+				{
+					node * temp = ptr->next->next ;
+					node * l = ptr->next ;					
+					free(l) ;
+					ptr->next = temp ;
+				}
+				else
+				{
+					node * p = ptr->next ;
+					ptr->next = NULL ;
+					free(p) ;
+				}			
+			}
+
+			ptr = ptr->next ;
+		}
+	}
+	return nptr ;
+}
+
 
 int main() 
 {
@@ -584,13 +622,12 @@ int main()
 	    {
             printf("Enter set index from which you want to remove an element : \n") ;
             scanf("%d",&ai) ;
-	    printf("Do you want to remove from start or end ? (1/0)\n") ;
+	    printf("Enter the element : \n") ;
 	    scanf("%d",&p) ;
             
-	    if(p == 1)
-            set_pptr[ai] = DeleteFromStart(set_pptr[ai]) ;
-	    else if(p == 2)
-	    set_pptr[ai] = DeleteFromEnd(set_pptr[ai]) ;
+            set_pptr[ai] = Delete(set_pptr[ai],p) ;
+	   // else if(p == 2)
+	    //set_pptr[ai] = DeleteFromEnd(set_pptr[ai]) ;
 	    } 
 	else if(n == 8)  
 	{
